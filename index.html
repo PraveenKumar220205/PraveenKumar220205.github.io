@@ -11,7 +11,6 @@ Index · HTML
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root{
     --bg:#0C0F16;
@@ -684,7 +683,7 @@ Index · HTML
     <h2 class="section-title reveal">Have a dataset that needs an answer?</h2>
     <p class="lede reveal">I'm open to data analyst / data science roles and freelance projects — send the data, I'll send back the decision.</p>
  
-    <form id="contactForm" class="contact-form reveal">
+    <form id="contactForm" class="contact-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="cf-row">
         <div class="cf-field">
           <label for="cf-name">Name</label>
@@ -844,46 +843,41 @@ Index · HTML
     });
   }
  
-  /* ---- contact form (EmailJS) ---- */
-  var EMAILJS_PUBLIC_KEY = '2s0UsMlwm6KgcEjMI';  // your EmailJS Public Key
-  var EMAILJS_SERVICE_ID  = 'service_ka353s6';  // your Gmail service
-  var EMAILJS_TEMPLATE_ID = 'template_5cxie3n'; // your Feedback Request template
-
-  if(window.emailjs && EMAILJS_PUBLIC_KEY.indexOf('YOUR_PUBLIC_KEY') === -1){
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  }
-
+  /* ---- contact form ---- */
   var cform = document.getElementById('contactForm');
   if(cform){
     cform.addEventListener('submit', function(e){
       e.preventDefault();
       var status = document.getElementById('cfStatus');
       var submitBtn = document.getElementById('cfSubmit');
-
-      if(EMAILJS_PUBLIC_KEY.indexOf('YOUR_PUBLIC_KEY') !== -1){
-        status.textContent = 'Form not connected yet — add your EmailJS Public Key in the script.';
+      var action = cform.getAttribute('action');
+      if(action.indexOf('YOUR_FORM_ID') !== -1){
+        status.textContent = 'Form not connected yet — see setup note below.';
         status.className = 'cf-status err';
         return;
       }
-
       submitBtn.disabled = true;
       status.textContent = 'Sending...';
       status.className = 'cf-status';
-
-      emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, cform)
-        .then(function(){
+      fetch(action, {
+        method: 'POST',
+        body: new FormData(cform),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res){
+        if(res.ok){
           status.textContent = 'Message sent — I\'ll reply by email soon.';
           status.className = 'cf-status ok';
           cform.reset();
-        })
-        .catch(function(err){
-          console.error('EmailJS error:', err);
+        } else {
           status.textContent = 'Something went wrong. Try emailing directly.';
           status.className = 'cf-status err';
-        })
-        .finally(function(){
-          submitBtn.disabled = false;
-        });
+        }
+      }).catch(function(){
+        status.textContent = 'Something went wrong. Try emailing directly.';
+        status.className = 'cf-status err';
+      }).finally(function(){
+        submitBtn.disabled = false;
+      });
     });
   }
  
