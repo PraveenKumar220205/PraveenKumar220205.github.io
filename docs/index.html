@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,10 +81,11 @@ Index · HTML
     font-size:14px; letter-spacing:0.02em;
     display:flex; align-items:center; gap:8px;
     text-decoration:none;
+    cursor:pointer;
   }
   .brand .dot{width:7px; height:7px; border-radius:50%; background:var(--amber); box-shadow:0 0 8px var(--amber);}
   .navlinks{display:flex; align-items:center; gap:30px; font-size:14px;}
-  .navlinks a{text-decoration:none; color:var(--text-dim); transition:color .2s;}
+  .navlinks a{text-decoration:none; color:var(--text-dim); transition:color .2s; cursor:pointer;}
   .navlinks a:hover{color:var(--text);}
   .btn{
     font-family:'IBM Plex Mono', monospace;
@@ -99,6 +97,7 @@ Index · HTML
     text-decoration:none;
     transition:all .2s;
     white-space:nowrap;
+    cursor:pointer;
   }
   .btn:hover{background:var(--amber); color:#14100a; border-color:var(--amber);}
   .btn-ghost{border-color:var(--line); color:var(--text-dim);}
@@ -441,13 +440,13 @@ Index · HTML
  
 <header>
   <nav class="wrap">
-    <a ="#hero" class="brand"><span class="dot"></span>PRAVEENKUMAR&nbsp;R</a>
+    <a href="#hero" class="brand"><span class="dot"></span>PRAVEENKUMAR&nbsp;R</a>
     <div class="navlinks" id="navlinks">
-      <a ="#work">Work</a>
-      <a ="#about">About</a>
-      <a ="#education">Education</a>
-      <a ="#contact">Contact</a>
-      <a ="Praveenkumar_R_Resume_.pdf" class="btn" target="_blank" rel="noopener">Résumé ↓</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <a href="Praveenkumar_R_Resume_.pdf" class="btn" target="_blank" rel="noopener">Résumé ↓</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
@@ -683,22 +682,21 @@ Index · HTML
     <h2 class="section-title reveal">Have a dataset that needs an answer?</h2>
     <p class="lede reveal">I'm open to data analyst / data science roles and freelance projects — send the data, I'll send back the decision.</p>
  
-    <form id="contactForm" class="contact-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <form id="contactForm" class="contact-form reveal">
       <div class="cf-row">
         <div class="cf-field">
           <label for="cf-name">Name</label>
-          <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+          <input type="text" id="cf-name" name="from_name" placeholder="Your name" required>
         </div>
         <div class="cf-field">
           <label for="cf-email">Email</label>
-          <input type="email" id="cf-email" name="_replyto" placeholder="you@company.com" required>
+          <input type="email" id="cf-email" name="reply_to" placeholder="you@company.com" required>
         </div>
       </div>
       <div class="cf-field">
         <label for="cf-message">Message</label>
         <textarea id="cf-message" name="message" rows="5" placeholder="Tell me about the role or the dataset..." required></textarea>
       </div>
-      <input type="text" name="_gotcha" style="display:none">
       <div class="cf-actions">
         <button type="submit" class="btn" id="cfSubmit">Send message</button>
         <span class="cf-status" id="cfStatus"></span>
@@ -724,10 +722,29 @@ Index · HTML
 </footer>
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 (function(){
   "use strict";
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ====================================================================
+     EMAILJS SETUP — REPLACE THESE 3 VALUES WITH YOUR OWN
+     1. Sign up free at https://www.emailjs.com
+     2. Add an Email Service (e.g. Gmail) -> copy the Service ID
+     3. Create an Email Template -> copy the Template ID
+        Make sure the template uses these variable names:
+        {{from_name}}, {{reply_to}}, {{message}}
+     4. Go to Account > General -> copy your Public Key
+     ==================================================================== */
+  var EMAILJS_PUBLIC_KEY  = "2s0UsMlwm6KgcEjMI";
+  var EMAILJS_SERVICE_ID  = "service_ka353s6";
+  var EMAILJS_TEMPLATE_ID = "template_5cxie3n";
+
+  if (window.emailjs) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
  
   /* ---- progress bar ---- */
   var progress = document.getElementById('progress');
@@ -843,41 +860,38 @@ Index · HTML
     });
   }
  
-  /* ---- contact form ---- */
+  /* ---- contact form (EmailJS) ---- */
   var cform = document.getElementById('contactForm');
   if(cform){
     cform.addEventListener('submit', function(e){
       e.preventDefault();
       var status = document.getElementById('cfStatus');
       var submitBtn = document.getElementById('cfSubmit');
-      var action = cform.getAttribute('action');
-      if(action.indexOf('YOUR_FORM_ID') !== -1){
-        status.textContent = 'Form not connected yet — see setup note below.';
+
+      if(!window.emailjs || EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID"){
+        status.textContent = 'Form not connected yet — add your EmailJS keys in the script.';
         status.className = 'cf-status err';
         return;
       }
+
       submitBtn.disabled = true;
       status.textContent = 'Sending...';
       status.className = 'cf-status';
-      fetch(action, {
-        method: 'POST',
-        body: new FormData(cform),
-        headers: { 'Accept': 'application/json' }
-      }).then(function(res){
-        if(res.ok){
-          status.textContent = 'Message sent — I\'ll reply by email soon.';
+
+      emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, cform)
+        .then(function(){
+          status.textContent = "Message sent — I'll reply by email soon.";
           status.className = 'cf-status ok';
           cform.reset();
-        } else {
+        })
+        .catch(function(err){
+          console.error('EmailJS error:', err);
           status.textContent = 'Something went wrong. Try emailing directly.';
           status.className = 'cf-status err';
-        }
-      }).catch(function(){
-        status.textContent = 'Something went wrong. Try emailing directly.';
-        status.className = 'cf-status err';
-      }).finally(function(){
-        submitBtn.disabled = false;
-      });
+        })
+        .finally(function(){
+          submitBtn.disabled = false;
+        });
     });
   }
  
@@ -966,4 +980,3 @@ Index · HTML
 </script>
 </body>
 </html>
- 
