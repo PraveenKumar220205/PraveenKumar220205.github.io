@@ -1,1 +1,969 @@
-testtest
+
+
+Index · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praveenkumar R — Data Scientist &amp; Statistician</title>
+<meta name="description" content="Portfolio of Praveenkumar R — Statistics graduate specializing in Python, SQL, Power BI and Machine Learning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0C0F16;
+    --bg-soft:#11151F;
+    --panel:#161B27;
+    --panel-2:#1C2231;
+    --line:#272E40;
+    --text:#EAEEF5;
+    --text-dim:#9BA3B7;
+    --text-faint:#5D6478;
+    --amber:#FFB454;
+    --amber-dim:#8A6635;
+    --teal:#6FE3D6;
+    --teal-dim:#2E5A56;
+    --danger:#FF7A6B;
+    --radius:14px;
+    --maxw:1180px;
+  }
+ 
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--amber); color:#14100a; }
+ 
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.14;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+ 
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Fraunces', serif;}
+ 
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+ 
+  /* ---------- progress bar ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:2px; width:0%;
+    background:linear-gradient(90deg, var(--amber), var(--teal));
+    z-index:1000; transition:width 0.08s linear;
+  }
+ 
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:900;
+    background:rgba(12,15,22,0.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:68px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+    text-decoration:none;
+  }
+  .brand .dot{width:7px; height:7px; border-radius:50%; background:var(--amber); box-shadow:0 0 8px var(--amber);}
+  .navlinks{display:flex; align-items:center; gap:30px; font-size:14px;}
+  .navlinks a{text-decoration:none; color:var(--text-dim); transition:color .2s;}
+  .navlinks a:hover{color:var(--text);}
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:8px;
+    border:1px solid var(--amber-dim);
+    color:var(--amber);
+    text-decoration:none;
+    transition:all .2s;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--amber); color:#14100a; border-color:var(--amber);}
+  .btn-ghost{border-color:var(--line); color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal); background:transparent;}
+ 
+  .menu-toggle{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:950;}
+  .menu-toggle span{width:22px; height:2px; background:var(--text); display:block; transition:.3s;}
+ 
+  /* ---------- hero ---------- */
+  #hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:68px;
+    z-index:1;
+  }
+  #hero-canvas{
+    position:absolute; inset:0;
+    z-index:0;
+    opacity:0.9;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    width:100%;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--teal);}
+  h1.name{
+    font-size:clamp(46px, 6.2vw, 84px);
+    line-height:0.98;
+    font-weight:500;
+    margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+  h1.name em{
+    font-style:italic; font-weight:500; color:var(--amber);
+  }
+  .lede{
+    font-size:18px; line-height:1.65;
+    color:var(--text-dim);
+    max-width:520px;
+    margin:0 0 34px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:48px;}
+  .hero-meta{
+    display:flex; gap:22px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; color:var(--text-faint);
+  }
+  .hero-meta a{color:var(--text-faint); text-decoration:none; border-bottom:1px dotted var(--text-faint); transition:color .2s, border-color .2s;}
+  .hero-meta a:hover, .hero-meta a:focus-visible{color:var(--amber); border-bottom:1px solid var(--amber);}
+ 
+  .stat-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-top:56px;
+  }
+  .stat{
+    background:var(--bg-soft);
+    padding:22px 20px;
+  }
+  .stat .num{
+    font-family:'Fraunces', serif;
+    font-size:34px; font-weight:500;
+    color:var(--text);
+    display:flex; align-items:baseline; gap:2px;
+  }
+  .stat .num .suffix{ font-size:20px; color:var(--amber); }
+  .stat .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--text-faint); margin-top:6px;
+  }
+ 
+  /* ---------- marquee ---------- */
+  .marquee-band{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg-soft);
+    padding:16px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative; z-index:1;
+  }
+  .marquee-track{
+    display:inline-flex;
+    animation:scroll-left 34s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; color:var(--text-faint);
+    padding:0 26px;
+    display:inline-flex; align-items:center; gap:26px;
+  }
+  .marquee-track span::after{content:"◆"; color:var(--amber-dim); font-size:9px;}
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+ 
+  /* ---------- section shell ---------- */
+  section{ position:relative; z-index:1; padding:120px 0; }
+  .section-head{
+    display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:end;
+    margin-bottom:56px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:24px;
+  }
+  .section-index{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-faint);
+  }
+  .section-title{
+    font-family:'Fraunces', serif; font-size:clamp(28px,3.6vw,42px); font-weight:500; margin:0;
+  }
+  .section-note{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint);
+    text-align:right; max-width:260px; margin-left:auto; line-height:1.5;
+  }
+ 
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+ 
+  /* ---------- process ---------- */
+  .process-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+  }
+  .process-step{
+    padding:30px 26px; border-right:1px solid var(--line); position:relative;
+    background:var(--bg-soft);
+  }
+  .process-step:last-child{border-right:none;}
+  .process-step .pnum{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber); margin-bottom:14px; display:block;}
+  .process-step h3{ font-family:'Fraunces', serif; font-weight:500; font-size:19px; margin:0 0 10px;}
+  .process-step p{ color:var(--text-dim); font-size:13.5px; line-height:1.55; margin:0;}
+  .process-step:not(:last-child)::after{
+    content:"→"; position:absolute; right:-11px; top:32px; color:var(--text-faint); font-size:14px; z-index:2;
+  }
+ 
+  /* ---------- about / skills ---------- */
+  .about-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; }
+  .about-copy p{ color:var(--text-dim); line-height:1.8; font-size:15.5px; margin:0 0 18px;}
+  .about-copy p strong{ color:var(--text); font-weight:600;}
+ 
+  .skill-cluster{ margin-bottom:34px; }
+  .skill-cluster > .cluster-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-faint); margin-bottom:16px; display:block;
+  }
+  .skill-row{ margin-bottom:15px; }
+  .skill-row .skill-top{ display:flex; justify-content:space-between; font-size:14px; margin-bottom:7px;}
+  .skill-row .skill-top .sname{ color:var(--text);}
+  .skill-row .skill-top .spct{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint);}
+  .bar-track{ height:6px; background:var(--panel-2); border-radius:4px; overflow:hidden; }
+  .bar-fill{
+    height:100%; width:0%; border-radius:4px;
+    background:linear-gradient(90deg, var(--teal-dim), var(--teal));
+    transition:width 1.1s cubic-bezier(.2,.8,.2,1);
+    box-shadow:0 0 10px -2px var(--teal);
+  }
+  .skill-cluster.familiar .bar-fill{
+    background:linear-gradient(90deg, var(--amber-dim), var(--amber));
+    box-shadow:0 0 10px -2px var(--amber);
+  }
+ 
+  /* ---------- filters ---------- */
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .filter-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+    padding:9px 16px; border-radius:20px; border:1px solid var(--line);
+    background:transparent; color:var(--text-dim); cursor:pointer; transition:.2s;
+  }
+  .filter-btn:hover{ border-color:var(--teal); color:var(--teal);}
+  .filter-btn.active{ background:var(--text); color:var(--bg); border-color:var(--text);}
+ 
+  /* ---------- project cards ---------- */
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; perspective:1400px; }
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px;
+    transform-style:preserve-3d;
+    transition:transform .15s ease, border-color .3s, box-shadow .3s;
+    display:flex; flex-direction:column;
+  }
+  .project-card:hover{ border-color:var(--teal-dim); box-shadow:0 20px 50px -20px rgba(0,0,0,0.6); }
+  .project-card.hide{ display:none; }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; transform:translateZ(24px);}
+  .card-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:4px 10px; border-radius:20px; border:1px solid var(--teal-dim); color:var(--teal);
+  }
+  .card-id{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint);}
+  .project-card h3{ font-family:'Fraunces', serif; font-size:22px; font-weight:500; margin:0 0 10px; transform:translateZ(20px);}
+  .project-card .p-summary{ color:var(--text-dim); font-size:14.5px; line-height:1.6; margin:0 0 18px; transform:translateZ(14px); }
+  .metric-row{ display:flex; gap:22px; margin-bottom:20px; flex-wrap:wrap; transform:translateZ(18px);}
+  .metric-row .m{ }
+  .metric-row .m .mv{ font-family:'Fraunces', serif; font-size:22px; color:var(--amber);}
+  .metric-row .m .ml{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em;}
+ 
+  .case-toggle{
+    margin-top:auto;
+    background:none; border:none; color:var(--teal); font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; cursor:pointer; display:flex; align-items:center; gap:8px; padding:0; padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  .case-toggle .chev{ transition:transform .3s; }
+  .case-toggle.open .chev{ transform:rotate(180deg); }
+  .case-body{
+    max-height:0; overflow:hidden; transition:max-height .45s ease;
+  }
+  .case-body-inner{ padding-top:18px; }
+  .case-block{ margin-bottom:14px; }
+  .case-block .cb-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--amber); text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:6px;}
+  .case-block p{ margin:0; color:var(--text-dim); font-size:13.5px; line-height:1.6;}
+  .card-links{ display:flex; gap:14px; margin-top:16px; }
+  .card-links a{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint); text-decoration:none; border-bottom:1px dotted var(--text-faint);}
+  .card-links a:hover{ color:var(--teal); border-color:var(--teal);}
+ 
+  /* ---------- education timeline ---------- */
+  .edu-cert-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; }
+  .timeline{ position:relative; padding-left:30px; border-left:1px solid var(--line);}
+  .tl-item{ position:relative; margin-bottom:8px; }
+  .tl-item::before{
+    content:""; position:absolute; left:-35px; top:4px; width:10px; height:10px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--amber);
+  }
+  .tl-item .tl-date{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-faint); margin-bottom:6px;}
+  .tl-item h4{ font-family:'Fraunces', serif; font-weight:500; font-size:19px; margin:0 0 4px;}
+  .tl-item p{ color:var(--text-dim); font-size:13.5px; margin:0; line-height:1.6;}
+  .cgpa-chip{
+    display:inline-block; margin-top:10px; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    color:var(--teal); border:1px solid var(--teal-dim); padding:4px 10px; border-radius:6px;
+  }
+ 
+  .cert-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .cert-item{
+    display:flex; align-items:flex-start; gap:12px;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px;
+    transition:.2s;
+  }
+  .cert-item:hover{ border-color:var(--amber-dim); transform:translateX(3px); }
+  .cert-num{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--amber); flex-shrink:0; padding-top:2px;}
+  .cert-item h5{ margin:0 0 3px; font-size:14px; font-weight:600; line-height:1.35;}
+  .cert-item span{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint);}
+ 
+  /* ---------- contact / footer ---------- */
+  #contact{ text-align:center; }
+  #contact .section-title{ font-size:clamp(32px,5vw,56px); }
+  #contact .lede{ margin:0 auto 40px; text-align:center; }
+  .contact-ctas{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+ 
+  .contact-form{
+    max-width:600px; margin:0 auto; text-align:left;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:32px;
+  }
+  .cf-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .cf-field{ margin-bottom:18px; display:flex; flex-direction:column; gap:8px; }
+  .cf-field label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--text-faint);
+  }
+  .cf-field input, .cf-field textarea{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:8px;
+    padding:12px 14px; color:var(--text); font-family:'IBM Plex Sans', sans-serif; font-size:14.5px;
+    resize:vertical; transition:border-color .2s;
+  }
+  .cf-field input:focus, .cf-field textarea:focus{
+    outline:none; border-color:var(--teal);
+  }
+  .cf-actions{ display:flex; align-items:center; gap:16px; }
+  .cf-actions .btn{ cursor:pointer; font-family:'IBM Plex Mono', monospace; border:1px solid var(--amber-dim); background:none; }
+  .cf-status{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-faint); }
+  .cf-status.ok{ color:var(--teal); }
+  .cf-status.err{ color:var(--danger); }
+  @media (max-width:640px){
+    .cf-row{ grid-template-columns:1fr; }
+    .contact-form{ padding:24px; }
+  }
+ 
+  footer{
+    border-top:1px solid var(--line);
+    padding:40px 0;
+    position:relative; z-index:1;
+  }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-row .fmono{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint); }
+  .footer-links{ display:flex; gap:20px; }
+  .footer-links a{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-dim); text-decoration:none;}
+  .footer-links a:hover{ color:var(--teal); }
+ 
+  /* ---------- responsive ---------- */
+  @media (max-width: 920px){
+    .hero-inner{ grid-template-columns:1fr; }
+    #hero-canvas{ opacity:0.55; }
+    .about-grid, .edu-cert-grid{ grid-template-columns:1fr; gap:40px;}
+    .project-grid{ grid-template-columns:1fr; }
+    .process-strip{ grid-template-columns:1fr 1fr; }
+    .process-step:nth-child(2)::after{ display:none; }
+    .cert-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 640px){
+    .wrap{ padding:0 20px; }
+    .navlinks{
+      position:fixed; top:68px; left:0; right:0; bottom:0;
+      background:var(--bg); flex-direction:column; justify-content:flex-start;
+      padding:40px 30px; gap:26px; font-size:18px;
+      transform:translateX(100%); transition:transform .35s ease;
+    }
+    .navlinks.open{ transform:translateX(0); }
+    .menu-toggle{ display:flex; }
+    .navlinks .btn{ margin-top:10px; }
+    .stat-grid{ grid-template-columns:1fr 1fr; }
+    .process-strip{ grid-template-columns:1fr; }
+    .process-step::after{ display:none; }
+    section{ padding:80px 0; }
+    .section-head{ grid-template-columns:1fr; }
+    .section-note{ text-align:left; margin-left:0; }
+  }
+ 
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+ 
+<div id="progress"></div>
+ 
+<header>
+  <nav class="wrap">
+    <a ="#hero" class="brand"><span class="dot"></span>PRAVEENKUMAR&nbsp;R</a>
+    <div class="navlinks" id="navlinks">
+      <a ="#work">Work</a>
+      <a ="#about">About</a>
+      <a ="#education">Education</a>
+      <a ="#contact">Contact</a>
+      <a ="Praveenkumar_R_Resume.pdf" class="btn" target="_blank" rel="noopener">Résumé ↓</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+ 
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">B.Sc. Statistics · Villupuram, India</div>
+      <h1 class="name">Turning raw<br>records into<br><em>decisions.</em></h1>
+      <p class="lede">I'm Praveenkumar — a statistics graduate who builds models, dashboards and queries that hold up under scrutiny. Python, SQL and Power BI are my instruments; the data is the subject.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn">View the work</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-meta">
+        <a href="mailto:praveenkumar220205@gmail.com">praveenkumar220205@gmail.com</a>
+        <a href="tel:+917094886514">+91 70948 86514</a>
+        <a href="https://github.com/PraveenKumar220205" target="_blank" rel="noopener">github.com/PraveenKumar220205</a>
+        <a href="https://linkedin.com/in/praveenkumar-r" target="_blank" rel="noopener">linkedin.com/in/praveenkumar-r</a>
+      </div>
+    </div>
+    <div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num" data-count="4"><span class="val">0</span></div><div class="label">Shipped Projects</div></div>
+        <div class="stat"><div class="num" data-count="88" data-suffix="%"><span class="val">0</span><span class="suffix">%</span></div><div class="label">Peak Model Accuracy</div></div>
+        <div class="stat"><div class="num" data-count="18" data-suffix="k+"><span class="val">0</span><span class="suffix">k+</span></div><div class="label">Records Analyzed</div></div>
+        <div class="stat"><div class="num" data-count="20" data-suffix="+"><span class="val">0</span><span class="suffix">+</span></div><div class="label">SQL Queries Written</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="marquee-band">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>PYTHON</span><span>SQL</span><span>POWER BI</span><span>SCIKIT-LEARN</span><span>PANDAS</span><span>NUMPY</span><span>TABLEAU</span><span>EXCEL</span><span>MATPLOTLIB</span><span>STREAMLIT</span><span>GIT &amp; GITHUB</span><span>JUPYTER NOTEBOOK</span>
+  </div>
+</div>
+ 
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-index mono">01</span>
+      <h2 class="section-title">How I work</h2>
+      <div class="section-note">note — every project below follows this same sequence, from raw file to a decision someone else can act on.</div>
+    </div>
+    <div class="process-strip reveal">
+      <div class="process-step"><span class="pnum mono">01</span><h3>Understand</h3><p>Start with the question a stakeholder actually needs answered, not the dataset itself.</p></div>
+      <div class="process-step"><span class="pnum mono">02</span><h3>Clean &amp; Explore</h3><p>Pandas, NumPy and a lot of scepticism — nulls, duplicates and outliers get named, not ignored.</p></div>
+      <div class="process-step"><span class="pnum mono">03</span><h3>Model</h3><p>Scikit-learn for prediction, SQL for structure — tuned and validated, not just fit.</p></div>
+      <div class="process-step"><span class="pnum mono">04</span><h3>Communicate</h3><p>Power BI, Tableau or a Streamlit app — the result has to be usable by someone who isn't me.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<section id="about2">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="section-index mono" style="margin-bottom:16px;">02 / ABOUT</div>
+      <h2 class="section-title" style="margin-bottom:24px;">Statistics first, tooling second.</h2>
+      <div class="about-copy">
+        <p><strong>I graduated with a B.Sc. in Statistics</strong> from Arignar Anna Arts College, and spent most of that time treating coursework as an excuse to build things — a churn model here, an attrition query there.</p>
+        <p>What I care about is the moment a number stops being a number and starts changing a decision: which job posting gets flagged, which region gets more marketing spend, which employee segment needs attention.</p>
+        <p>I'm currently looking for my <strong>first role in data analysis or data science</strong>, and open to freelance work where a dataset needs turning into an answer.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="skill-cluster core">
+        <span class="cluster-label">Core Toolkit</span>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Python (Pandas, NumPy)</span><span class="spct">90%</span></div><div class="bar-track"><div class="bar-fill" data-pct="90"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">SQL</span><span class="spct">85%</span></div><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Power BI</span><span class="spct">85%</span></div><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Scikit-Learn</span><span class="spct">78%</span></div><div class="bar-track"><div class="bar-fill" data-pct="78"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Excel</span><span class="spct">85%</span></div><div class="bar-track"><div class="bar-fill" data-pct="85"></div></div></div>
+      </div>
+      <div class="skill-cluster familiar">
+        <span class="cluster-label">Growing Edge</span>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Tableau</span><span class="spct">60%</span></div><div class="bar-track"><div class="bar-fill" data-pct="60"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Streamlit</span><span class="spct">65%</span></div><div class="bar-track"><div class="bar-fill" data-pct="65"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Matplotlib</span><span class="spct">70%</span></div><div class="bar-track"><div class="bar-fill" data-pct="70"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="sname">Git &amp; GitHub</span><span class="spct">72%</span></div><div class="bar-track"><div class="bar-fill" data-pct="72"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-index mono">03</span>
+      <h2 class="section-title">Selected work</h2>
+      <div class="section-note">note — each card opens into a problem / approach / result breakdown, same shape every time.</div>
+    </div>
+    <div class="filter-row reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="nlp">NLP</button>
+      <button class="filter-btn" data-filter="sql">SQL</button>
+      <button class="filter-btn" data-filter="bi">BI &amp; Dashboards</button>
+    </div>
+ 
+    <div class="project-grid reveal" id="projectGrid">
+ 
+      <div class="project-card" data-cat="ml nlp">
+        <div class="card-top"><span class="card-tag">ML · NLP</span><span class="card-id mono">DATASET 01</span></div>
+        <h3>Fake Job Detection System</h3>
+        <p class="p-summary">An NLP classifier that reads a job posting the way a skeptical recruiter would, and flags the ones that don't add up.</p>
+        <div class="metric-row">
+          <div class="m"><div class="mv">85%</div><div class="ml">Accuracy</div></div>
+          <div class="m"><div class="mv">TF-IDF</div><div class="ml">Vectorization</div></div>
+          <div class="m"><div class="mv">Live</div><div class="ml">Streamlit App</div></div>
+        </div>
+        <button class="case-toggle"><span class="chev">▾</span> Problem / Approach / Result</button>
+        <div class="case-body">
+          <div class="case-body-inner">
+            <div class="case-block"><span class="cb-label">Problem</span><p>Fake job listings are hard to spot from posting text alone, and cost job-seekers time and trust.</p></div>
+            <div class="case-block"><span class="cb-label">Approach</span><p>Built a TF-IDF + Logistic Regression pipeline in Python, then wrapped it in a Streamlit app for real-time predictions on new postings.</p></div>
+            <div class="case-block"><span class="cb-label">Result</span><p>85% classification accuracy on held-out postings, deployed as an interactive tool rather than a notebook.</p></div>
+          </div>
+        </div>
+        <div class="card-links"><a href="https://github.com/PraveenKumar220205/fake-job-detection" target="_blank" rel="noopener">View on GitHub →</a></div>
+      </div>
+ 
+      <div class="project-card" data-cat="bi">
+        <div class="card-top"><span class="card-tag">Power BI · Excel</span><span class="card-id mono">DATASET 02</span></div>
+        <h3>Adidas Sales Dashboard</h3>
+        <p class="p-summary">An interactive dashboard turning 9,600+ rows of sales data into a story a regional manager can act on.</p>
+        <div class="metric-row">
+          <div class="m"><div class="mv">9.6k+</div><div class="ml">Records</div></div>
+          <div class="m"><div class="mv">34%</div><div class="ml">Top Region Share</div></div>
+          <div class="m"><div class="mv">-50%</div><div class="ml">Reporting Time</div></div>
+        </div>
+        <button class="case-toggle"><span class="chev">▾</span> Problem / Approach / Result</button>
+        <div class="case-body">
+          <div class="case-body-inner">
+            <div class="case-block"><span class="cb-label">Problem</span><p>Revenue, profit and product-trend data was scattered across regions with no fast way to compare them.</p></div>
+            <div class="case-block"><span class="cb-label">Approach</span><p>Built pivot tables in Excel and an interactive Power BI dashboard with slicers for dynamic filtering by region and product line.</p></div>
+            <div class="case-block"><span class="cb-label">Result</span><p>Identified the top region driving 34% of total revenue, and cut manual reporting time by roughly half.</p></div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="project-card" data-cat="ml">
+        <div class="card-top"><span class="card-tag">Machine Learning</span><span class="card-id mono">DATASET 03</span></div>
+        <h3>Customer Churn Prediction</h3>
+        <p class="p-summary">A classification model comparing three algorithms to predict which telecom customers are about to leave.</p>
+        <div class="metric-row">
+          <div class="m"><div class="mv">88%</div><div class="ml">Best Accuracy</div></div>
+          <div class="m"><div class="mv">7k+</div><div class="ml">Customer Records</div></div>
+          <div class="m"><div class="mv">3</div><div class="ml">Models Compared</div></div>
+        </div>
+        <button class="case-toggle"><span class="chev">▾</span> Problem / Approach / Result</button>
+        <div class="case-body">
+          <div class="case-body-inner">
+            <div class="case-block"><span class="cb-label">Problem</span><p>Telecom churn is expensive to react to after the fact — the value is in predicting it early.</p></div>
+            <div class="case-block"><span class="cb-label">Approach</span><p>Trained Logistic Regression, Decision Tree and Random Forest models in Scikit-learn, with EDA and feature engineering in Pandas, Seaborn and Matplotlib.</p></div>
+            <div class="case-block"><span class="cb-label">Result</span><p>Random Forest reached 88% accuracy after hyperparameter tuning; full notebook published on GitHub.</p></div>
+          </div>
+        </div>
+        <div class="card-links"><a href="https://github.com/PraveenKumar220205" target="_blank" rel="noopener">View on GitHub →</a></div>
+      </div>
+ 
+      <div class="project-card" data-cat="sql">
+        <div class="card-top"><span class="card-tag">SQL</span><span class="card-id mono">DATASET 04</span></div>
+        <h3>SQL-Based HR Attrition Analysis</h3>
+        <p class="p-summary">Querying an HR database directly to find where and why people were leaving, without touching a BI tool.</p>
+        <div class="metric-row">
+          <div class="m"><div class="mv">1,470</div><div class="ml">Employee Records</div></div>
+          <div class="m"><div class="mv">20+</div><div class="ml">SQL Queries</div></div>
+          <div class="m"><div class="mv">-40%</div><div class="ml">Analysis Time</div></div>
+        </div>
+        <button class="case-toggle"><span class="chev">▾</span> Problem / Approach / Result</button>
+        <div class="case-body">
+          <div class="case-body-inner">
+            <div class="case-block"><span class="cb-label">Problem</span><p>HR needed to know which department, age group and salary band were driving attrition — directly from raw records.</p></div>
+            <div class="case-block"><span class="cb-label">Approach</span><p>Wrote 20+ SQL queries using JOINs, GROUP BY, window functions and CTEs across a 1,470-record employee database.</p></div>
+            <div class="case-block"><span class="cb-label">Result</span><p>Surfaced the key attrition drivers and exported structured KPI summaries to Excel, cutting analysis time by 40%.</p></div>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<section id="education">
+  <div class="wrap edu-cert-grid">
+    <div class="reveal">
+      <div class="section-index mono" style="margin-bottom:16px;">04 / EDUCATION</div>
+      <h2 class="section-title" style="margin-bottom:32px;">Foundation</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date mono">OCT 2022 — MAY 2025</div>
+          <h4>B.Sc. Statistics</h4>
+          <p>Arignar Anna Arts College, Villupuram</p>
+          <span class="cgpa-chip">CGPA 7.2</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date mono">HIGHER SECONDARY (12TH)</div>
+          <h4>Class XII</h4>
+          <p>Government Higher Secondary School, Keelperumpakkam</p>
+          <span class="cgpa-chip">50%</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date mono">SECONDARY (10TH)</div>
+          <h4>Class X</h4>
+          <p>Government Higher Secondary School, Manakkupam</p>
+          <span class="cgpa-chip">63%</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-index mono" style="margin-bottom:16px;">05 / CERTIFICATIONS</div>
+      <h2 class="section-title" style="margin-bottom:32px;">Continued study</h2>
+      <div class="cert-grid">
+        <div class="cert-item"><span class="cert-num mono">01</span><div><h5>Business Analysis Foundation</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">02</span><div><h5>Tech Career Skills in Data Analytics</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">03</span><div><h5>Artificial Intelligence (AI)</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">04</span><div><h5>Artificial Intelligence for Business</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">05</span><div><h5>Computer Ethics</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">06</span><div><h5>Cybersecurity</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">07</span><div><h5>Search Engine Technology</h5><span>LinkedIn Learning</span></div></div>
+        <div class="cert-item"><span class="cert-num mono">08</span><div><h5>Network Administration</h5><span>Microsoft</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="contact">
+  <div class="wrap">
+    <div class="section-index mono reveal" style="margin-bottom:16px;">06 / CONTACT</div>
+    <h2 class="section-title reveal">Have a dataset that needs an answer?</h2>
+    <p class="lede reveal">I'm open to data analyst / data science roles and freelance projects — send the data, I'll send back the decision.</p>
+ 
+    <form id="contactForm" class="contact-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="cf-row">
+        <div class="cf-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="_replyto" placeholder="you@company.com" required>
+        </div>
+      </div>
+      <div class="cf-field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="5" placeholder="Tell me about the role or the dataset..." required></textarea>
+      </div>
+      <input type="text" name="_gotcha" style="display:none">
+      <div class="cf-actions">
+        <button type="submit" class="btn" id="cfSubmit">Send message</button>
+        <span class="cf-status" id="cfStatus"></span>
+      </div>
+    </form>
+ 
+    <div class="contact-ctas reveal" style="margin-top:28px;">
+      <a href="mailto:praveenkumar220205@gmail.com" class="btn btn-ghost">Or email directly →</a>
+      <a href="Praveenkumar_R_Resume_.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Download Résumé ↓</a>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <div class="wrap footer-row">
+    <span class="fmono">© 2026 PRAVEENKUMAR R · VILLUPURAM, TAMIL NADU · N = 4 PROJECTS, α = STILL LEARNING</span>
+    <div class="footer-links">
+      <a href="https://github.com/PraveenKumar220205" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/praveenkumar-r" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="tel:+917094886514">+91 70948 86514</a>
+    </div>
+  </div>
+</footer>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ 
+  /* ---- progress bar ---- */
+  var progress = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+ 
+  /* ---- mobile menu ---- */
+  var toggle = document.getElementById('menuToggle');
+  var navlinks = document.getElementById('navlinks');
+  toggle.addEventListener('click', function(){
+    navlinks.classList.toggle('open');
+  });
+  navlinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navlinks.classList.remove('open'); });
+  });
+ 
+  /* ---- scroll reveal ---- */
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(function(el){ io.observe(el); });
+ 
+  /* ---- counters ---- */
+  var counters = document.querySelectorAll('.num[data-count]');
+  var counted = false;
+  function runCounters(){
+    if(counted) return; counted = true;
+    counters.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var valEl = el.querySelector('.val');
+      var start = null; var dur = 1400;
+      function step(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts - start)/dur, 1);
+        var eased = 1 - Math.pow(1-p, 3);
+        valEl.textContent = Math.round(eased * target);
+        if(p < 1) requestAnimationFrame(step);
+      }
+      if(reduced){ valEl.textContent = target; } else { requestAnimationFrame(step); }
+    });
+  }
+  var heroStatEl = document.querySelector('.stat-grid');
+  if(heroStatEl){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ runCounters(); io2.disconnect(); } });
+    }, {threshold:0.3});
+    io2.observe(heroStatEl);
+  }
+ 
+  /* ---- skill bars ---- */
+  var bars = document.querySelectorAll('.bar-fill');
+  var io3 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var pct = e.target.getAttribute('data-pct');
+        e.target.style.width = pct + '%';
+        io3.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.3});
+  bars.forEach(function(b){ io3.observe(b); });
+ 
+  /* ---- filters ---- */
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.project-card');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var cats = card.getAttribute('data-cat');
+        if(f === 'all' || cats.indexOf(f) !== -1){ card.classList.remove('hide'); }
+        else { card.classList.add('hide'); }
+      });
+    });
+  });
+ 
+  /* ---- case study expand ---- */
+  document.querySelectorAll('.case-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var body = btn.nextElementSibling;
+      var isOpen = btn.classList.contains('open');
+      if(isOpen){
+        btn.classList.remove('open');
+        body.style.maxHeight = '0px';
+      } else {
+        btn.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+ 
+  /* ---- 3D tilt on project cards ---- */
+  if(!reduced){
+    cards.forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'rotateY(' + (x*7) + 'deg) rotateX(' + (-y*7) + 'deg) translateZ(0)';
+      });
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
+    });
+  }
+ 
+  /* ---- contact form ---- */
+  var cform = document.getElementById('contactForm');
+  if(cform){
+    cform.addEventListener('submit', function(e){
+      e.preventDefault();
+      var status = document.getElementById('cfStatus');
+      var submitBtn = document.getElementById('cfSubmit');
+      var action = cform.getAttribute('action');
+      if(action.indexOf('YOUR_FORM_ID') !== -1){
+        status.textContent = 'Form not connected yet — see setup note below.';
+        status.className = 'cf-status err';
+        return;
+      }
+      submitBtn.disabled = true;
+      status.textContent = 'Sending...';
+      status.className = 'cf-status';
+      fetch(action, {
+        method: 'POST',
+        body: new FormData(cform),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res){
+        if(res.ok){
+          status.textContent = 'Message sent — I\'ll reply by email soon.';
+          status.className = 'cf-status ok';
+          cform.reset();
+        } else {
+          status.textContent = 'Something went wrong. Try emailing directly.';
+          status.className = 'cf-status err';
+        }
+      }).catch(function(){
+        status.textContent = 'Something went wrong. Try emailing directly.';
+        status.className = 'cf-status err';
+      }).finally(function(){
+        submitBtn.disabled = false;
+      });
+    });
+  }
+ 
+  /* ---- marquee pause on hover ---- */
+  var track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML; // duplicate for seamless loop
+  track.parentElement.addEventListener('mouseenter', function(){ track.style.animationPlayState = 'paused'; });
+  track.parentElement.addEventListener('mouseleave', function(){ track.style.animationPlayState = 'running'; });
+ 
+  /* ---- 3D hero regression cloud (three.js) ---- */
+  var canvas = document.getElementById('hero-canvas');
+  if(window.THREE && canvas){
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(50, canvas.parentElement.clientWidth / canvas.parentElement.clientHeight, 0.1, 100);
+    camera.position.set(0, 0.6, 9);
+ 
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha:true, antialias:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    function sizeRenderer(){
+      var w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w/h; camera.updateProjectionMatrix();
+    }
+    sizeRenderer();
+ 
+    var group = new THREE.Group();
+    scene.add(group);
+ 
+    // scattered points forming a rough linear trend ("effort vs outcome")
+    var N = 220;
+    var geo = new THREE.BufferGeometry();
+    var positions = new Float32Array(N*3);
+    var colors = new Float32Array(N*3);
+    var amber = new THREE.Color(0xFFB454);
+    var teal = new THREE.Color(0x6FE3D6);
+    for(var i=0;i<N;i++){
+      var t = (Math.random()-0.5)*10;
+      var noise = (Math.random()-0.5)*3.2;
+      var x = t;
+      var y = t*0.5 + noise;
+      var z = (Math.random()-0.5)*6;
+      positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
+      var c = amber.clone().lerp(teal, Math.random());
+      colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    var mat = new THREE.PointsMaterial({ size:0.09, vertexColors:true, transparent:true, opacity:0.9 });
+    var points = new THREE.Points(geo, mat);
+    group.add(points);
+ 
+    // regression plane / line of best fit
+    var lineGeo = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-5.2, -2.6, 0), new THREE.Vector3(5.2, 2.6, 0)
+    ]);
+    var lineMat = new THREE.LineBasicMaterial({ color:0xFFB454, transparent:true, opacity:0.55 });
+    var line = new THREE.Line(lineGeo, lineMat);
+    group.add(line);
+ 
+    group.rotation.x = 0.15;
+    group.rotation.y = -0.3;
+ 
+    var mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', function(e){
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+ 
+    var clock = new THREE.Clock();
+    function animate(){
+      requestAnimationFrame(animate);
+      var dt = clock.getDelta();
+      if(!reduced){
+        group.rotation.y += dt * 0.12;
+        group.rotation.x += (mouseY*0.3 - group.rotation.x*0.05) * dt * 2;
+        camera.position.x += (mouseX*1.2 - camera.position.x) * 0.02;
+        camera.lookAt(0,0,0);
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+ 
+    window.addEventListener('resize', sizeRenderer);
+  }
+})();
+</script>
+</body>
+</html>
+ 
